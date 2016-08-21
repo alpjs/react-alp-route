@@ -1,3 +1,7 @@
+### v0.1.1
+
+- [`e423bb4`](https://github.com/alpjs/react-alp-route/commit/e423bb4731be886fd2a6dfc04f400b1cfa36d0d7) name prop: route key (Christophe Hurpeau)
+
 ### v0.1.0
 
 - [`cabcbbe`](https://github.com/alpjs/react-alp-route/commit/cabcbbe3078d5bb8d287624b0a4318208d46df1c) first commit (Christophe Hurpeau)
