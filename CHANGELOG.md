@@ -1,3 +1,7 @@
+### v0.3.0
+
+- [`4799859`](https://github.com/alpjs/react-alp-route/commit/47998595fdab865bfb11e337832aad88cae5dc1e) pob-babel@8.3.1 (Christophe Hurpeau)
+
 ### v0.2.0
 
 - [`2c59a3f`](https://github.com/alpjs/react-alp-route/commit/2c59a3f1b46ea92a5546090bfe44b3ab12c36370) update dependencies (Christophe Hurpeau)
