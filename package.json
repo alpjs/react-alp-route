@@ -32,7 +32,7 @@
     "eslint-config-pob": "^7.6.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.0",
-    "pob-babel": "^8.3.0",
+    "pob-babel": "^8.3.1",
     "pob-release": "^2.1.2",
     "react": "^15.3.2",
     "tcomb-forked": "^3.4.0"
