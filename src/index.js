@@ -12,10 +12,10 @@ RouteComponent.contextTypes = {
 };
 
 type Props = {
-    name: ?string;
-    controller: ?string;
-    action: ?string|Array<string>;
-    children: Function;
+  name: ?string,
+  controller: ?string,
+  action: ?string|Array<string>,
+  children: Function,
 };
 
 export default function RouteComponent(

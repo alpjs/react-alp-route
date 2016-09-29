@@ -1,5 +1,4 @@
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
+import _t from 'tcomb-forked';
 import { PropTypes } from 'react';
 // import areEqual from 'fbjs/lib/areEqual';
 
@@ -13,21 +12,12 @@ RouteComponent.contextTypes = {
   context: PropTypes.object
 };
 
-var Props = function () {
-  function Props(input) {
-    return input != null && (input.name == null || typeof input.name === 'string') && (input.controller == null || typeof input.controller === 'string') && (input.action == null || typeof input.action === 'string' || Array.isArray(input.action) && input.action.every(function (item) {
-      return typeof item === 'string';
-    })) && typeof input.children === 'function';
-  }
-
-  ;
-  Object.defineProperty(Props, Symbol.hasInstance, {
-    value: function value(input) {
-      return Props(input);
-    }
-  });
-  return Props;
-}();
+var Props = _t.interface({
+  name: _t.maybe(_t.String),
+  controller: _t.maybe(_t.String),
+  action: _t.union([_t.maybe(_t.String), _t.list(_t.String)]),
+  children: _t.Function
+}, 'Props');
 
 export default function RouteComponent(_ref, _ref2) {
   var name = _ref.name;
@@ -36,9 +26,12 @@ export default function RouteComponent(_ref, _ref2) {
   var children = _ref.children;
   var route = _ref2.context.route;
 
-  if (!Props(arguments[0])) {
-    throw new TypeError('Value of argument 0 violates contract.\n\nExpected:\nProps\n\nGot:\n' + _inspect(arguments[0]));
-  }
+  _assert({
+    name: name,
+    controller: controller,
+    action: action,
+    children: children
+  }, Props, '{ name, controller, action, children }');
 
   if (name !== undefined && name !== route.key) return null;
   if (controller !== undefined && controller !== route.controller) return null;
@@ -53,76 +46,25 @@ export default function RouteComponent(_ref, _ref2) {
   return children(route);
 }
 
-function _inspect(input, depth) {
-  var maxDepth = 4;
-  var maxKeys = 15;
-
-  if (depth === undefined) {
-    depth = 0;
+function _assert(x, type, name) {
+  function message() {
+    return 'Invalid value ' + _t.stringify(x) + ' supplied to ' + name + ' (expected a ' + _t.getTypeName(type) + ')';
   }
 
-  depth += 1;
+  if (_t.isType(type)) {
+    if (!type.is(x)) {
+      type(x, [name + ': ' + _t.getTypeName(type)]);
 
-  if (input === null) {
-    return 'null';
-  } else if (input === undefined) {
-    return 'void';
-  } else if (typeof input === 'string' || typeof input === 'number' || typeof input === 'boolean') {
-    return typeof input === 'undefined' ? 'undefined' : _typeof(input);
-  } else if (Array.isArray(input)) {
-    if (input.length > 0) {
-      var _ret = function () {
-        if (depth > maxDepth) return {
-            v: '[...]'
-          };
-
-        var first = _inspect(input[0], depth);
-
-        if (input.every(function (item) {
-          return _inspect(item, depth) === first;
-        })) {
-          return {
-            v: first.trim() + '[]'
-          };
-        } else {
-          return {
-            v: '[' + input.slice(0, maxKeys).map(function (item) {
-              return _inspect(item, depth);
-            }).join(', ') + (input.length >= maxKeys ? ', ...' : '') + ']'
-          };
-        }
-      }();
-
-      if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-    } else {
-      return 'Array';
-    }
-  } else {
-    var keys = Object.keys(input);
-
-    if (!keys.length) {
-      if (input.constructor && input.constructor.name && input.constructor.name !== 'Object') {
-        return input.constructor.name;
-      } else {
-        return 'Object';
-      }
+      _t.fail(message());
     }
 
-    if (depth > maxDepth) return '{...}';
-    var indent = '  '.repeat(depth - 1);
-    var entries = keys.slice(0, maxKeys).map(function (key) {
-      return (/^([A-Z_$][A-Z0-9_$]*)$/i.test(key) ? key : JSON.stringify(key)) + ': ' + _inspect(input[key], depth) + ';';
-    }).join('\n  ' + indent);
-
-    if (keys.length >= maxKeys) {
-      entries += '\n  ' + indent + '...';
-    }
-
-    if (input.constructor && input.constructor.name && input.constructor.name !== 'Object') {
-      return input.constructor.name + ' {\n  ' + indent + entries + '\n' + indent + '}';
-    } else {
-      return '{\n  ' + indent + entries + '\n' + indent + '}';
-    }
+    return type(x);
   }
+
+  if (!(x instanceof type)) {
+    _t.fail(message());
+  }
+
+  return x;
 }
 //# sourceMappingURL=index.js.map

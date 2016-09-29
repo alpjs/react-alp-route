@@ -5,7 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = RouteComponent;
 
+var _tcombForked = require('tcomb-forked');
+
+var _tcombForked2 = _interopRequireDefault(_tcombForked);
+
 var _react = require('react');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import areEqual from 'fbjs/lib/areEqual';
 
@@ -19,32 +25,28 @@ RouteComponent.contextTypes = {
   context: _react.PropTypes.object
 };
 
-const Props = function () {
-  function Props(input) {
-    return input != null && (input.name == null || typeof input.name === 'string') && (input.controller == null || typeof input.controller === 'string') && (input.action == null || typeof input.action === 'string' || Array.isArray(input.action) && input.action.every(function (item) {
-      return typeof item === 'string';
-    })) && typeof input.children === 'function';
-  }
-
-  ;
-  Object.defineProperty(Props, Symbol.hasInstance, {
-    value: function value(input) {
-      return Props(input);
-    }
-  });
-  return Props;
-}();
+const Props = _tcombForked2.default.interface({
+  name: _tcombForked2.default.maybe(_tcombForked2.default.String),
+  controller: _tcombForked2.default.maybe(_tcombForked2.default.String),
+  action: _tcombForked2.default.union([_tcombForked2.default.maybe(_tcombForked2.default.String), _tcombForked2.default.list(_tcombForked2.default.String)]),
+  children: _tcombForked2.default.Function
+}, 'Props');
 
 function RouteComponent(_ref, _ref2) {
-  let name = _ref.name;
-  let controller = _ref.controller;
-  let action = _ref.action;
-  let children = _ref.children;
+  var _assert2 = _assert(_ref, Props, '{ name, controller, action, children }');
+
+  let name = _assert2.name;
+  let controller = _assert2.controller;
+  let action = _assert2.action;
+  let children = _assert2.children;
   let route = _ref2.context.route;
 
-  if (!Props(arguments[0])) {
-    throw new TypeError('Value of argument 0 violates contract.\n\nExpected:\nProps\n\nGot:\n' + _inspect(arguments[0]));
-  }
+  _assert({
+    name,
+    controller,
+    action,
+    children
+  }, Props, '{ name, controller, action, children }');
 
   if (name !== undefined && name !== route.key) return null;
   if (controller !== undefined && controller !== route.controller) return null;
@@ -59,62 +61,25 @@ function RouteComponent(_ref, _ref2) {
   return children(route);
 }
 
-function _inspect(input, depth) {
-  const maxDepth = 4;
-  const maxKeys = 15;
-
-  if (depth === undefined) {
-    depth = 0;
+function _assert(x, type, name) {
+  function message() {
+    return 'Invalid value ' + _tcombForked2.default.stringify(x) + ' supplied to ' + name + ' (expected a ' + _tcombForked2.default.getTypeName(type) + ')';
   }
 
-  depth += 1;
+  if (_tcombForked2.default.isType(type)) {
+    if (!type.is(x)) {
+      type(x, [name + ': ' + _tcombForked2.default.getTypeName(type)]);
 
-  if (input === null) {
-    return 'null';
-  } else if (input === undefined) {
-    return 'void';
-  } else if (typeof input === 'string' || typeof input === 'number' || typeof input === 'boolean') {
-    return typeof input;
-  } else if (Array.isArray(input)) {
-    if (input.length > 0) {
-      if (depth > maxDepth) return '[...]';
-
-      const first = _inspect(input[0], depth);
-
-      if (input.every(item => _inspect(item, depth) === first)) {
-        return first.trim() + '[]';
-      } else {
-        return '[' + input.slice(0, maxKeys).map(item => _inspect(item, depth)).join(', ') + (input.length >= maxKeys ? ', ...' : '') + ']';
-      }
-    } else {
-      return 'Array';
-    }
-  } else {
-    const keys = Object.keys(input);
-
-    if (!keys.length) {
-      if (input.constructor && input.constructor.name && input.constructor.name !== 'Object') {
-        return input.constructor.name;
-      } else {
-        return 'Object';
-      }
+      _tcombForked2.default.fail(message());
     }
 
-    if (depth > maxDepth) return '{...}';
-    const indent = '  '.repeat(depth - 1);
-    let entries = keys.slice(0, maxKeys).map(key => {
-      return (/^([A-Z_$][A-Z0-9_$]*)$/i.test(key) ? key : JSON.stringify(key)) + ': ' + _inspect(input[key], depth) + ';';
-    }).join('\n  ' + indent);
-
-    if (keys.length >= maxKeys) {
-      entries += '\n  ' + indent + '...';
-    }
-
-    if (input.constructor && input.constructor.name && input.constructor.name !== 'Object') {
-      return input.constructor.name + ' {\n  ' + indent + entries + '\n' + indent + '}';
-    } else {
-      return '{\n  ' + indent + entries + '\n' + indent + '}';
-    }
+    return type(x);
   }
+
+  if (!(x instanceof type)) {
+    _tcombForked2.default.fail(message());
+  }
+
+  return x;
 }
 //# sourceMappingURL=index.js.map
