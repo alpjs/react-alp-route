@@ -1,3 +1,7 @@
+### v0.2.0
+
+- [`2c59a3f`](https://github.com/alpjs/react-alp-route/commit/2c59a3f1b46ea92a5546090bfe44b3ab12c36370) update dependencies (Christophe Hurpeau)
+
 ### v0.1.1
 
 - [`e423bb4`](https://github.com/alpjs/react-alp-route/commit/e423bb4731be886fd2a6dfc04f400b1cfa36d0d7) name prop: route key (Christophe Hurpeau)
