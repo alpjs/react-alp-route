@@ -1,27 +1,17 @@
 import { PropTypes } from 'react';
 // import areEqual from 'fbjs/lib/areEqual';
 
-RouteComponent.propTypes = {
-  controller: PropTypes.string,
-  action: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  children: PropTypes.func.isRequired,
-};
+type PropsType = {
+   name: ?string,
+   controller: ?string,
+   action: ?string|Array<string>,
+   children: Function,
+ };
 
-RouteComponent.contextTypes = {
-  context: PropTypes.object,
-};
-
-type Props = {
-  name: ?string,
-  controller: ?string,
-  action: ?string|Array<string>,
-  children: Function,
-};
-
-export default function RouteComponent(
-  { name, controller, action, children }: Props,
+const RouteComponent = (
+  { name, controller, action, children }: PropsType,
   { context: { route } },
-) {
+) => {
   if (name !== undefined && name !== route.key) return null;
   if (controller !== undefined && controller !== route.controller) return null;
   if (action !== undefined) {
@@ -33,4 +23,16 @@ export default function RouteComponent(
   }
 
   return children(route);
-}
+};
+
+RouteComponent.propTypes = {
+  controller: PropTypes.string,
+  action: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  children: PropTypes.func.isRequired,
+};
+
+RouteComponent.contextTypes = {
+  context: PropTypes.object,
+};
+
+export default RouteComponent;

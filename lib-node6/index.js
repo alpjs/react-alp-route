@@ -3,27 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = RouteComponent;
 
 var _react = require('react');
 
 // import areEqual from 'fbjs/lib/areEqual';
 
-RouteComponent.propTypes = {
-  controller: _react.PropTypes.string,
-  action: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.arrayOf(_react.PropTypes.string)]),
-  children: _react.PropTypes.func.isRequired
-};
-
-RouteComponent.contextTypes = {
-  context: _react.PropTypes.object
-};
-
-function RouteComponent(_ref, _ref2) {
-  let name = _ref.name;
-  let controller = _ref.controller;
-  let action = _ref.action;
-  let children = _ref.children;
+const RouteComponent = (_ref, _ref2) => {
+  let name = _ref.name,
+      controller = _ref.controller,
+      action = _ref.action,
+      children = _ref.children;
   let route = _ref2.context.route;
 
   if (name !== undefined && name !== route.key) return null;
@@ -37,5 +26,17 @@ function RouteComponent(_ref, _ref2) {
   }
 
   return children(route);
-}
+};
+
+RouteComponent.propTypes = {
+  controller: _react.PropTypes.string,
+  action: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.arrayOf(_react.PropTypes.string)]),
+  children: _react.PropTypes.func.isRequired
+};
+
+RouteComponent.contextTypes = {
+  context: _react.PropTypes.object
+};
+
+exports.default = RouteComponent;
 //# sourceMappingURL=index.js.map

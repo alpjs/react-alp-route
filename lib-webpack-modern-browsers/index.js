@@ -1,21 +1,11 @@
 import { PropTypes } from 'react';
 // import areEqual from 'fbjs/lib/areEqual';
 
-RouteComponent.propTypes = {
-  controller: PropTypes.string,
-  action: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  children: PropTypes.func.isRequired
-};
-
-RouteComponent.contextTypes = {
-  context: PropTypes.object
-};
-
-export default function RouteComponent(_ref, _ref2) {
-  var name = _ref.name;
-  var controller = _ref.controller;
-  var action = _ref.action;
-  var children = _ref.children;
+var RouteComponent = (_ref, _ref2) => {
+  var name = _ref.name,
+      controller = _ref.controller,
+      action = _ref.action,
+      children = _ref.children;
   var route = _ref2.context.route;
 
   if (name !== undefined && name !== route.key) return null;
@@ -29,5 +19,17 @@ export default function RouteComponent(_ref, _ref2) {
   }
 
   return children(route);
-}
+};
+
+RouteComponent.propTypes = {
+  controller: PropTypes.string,
+  action: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  children: PropTypes.func.isRequired
+};
+
+RouteComponent.contextTypes = {
+  context: PropTypes.object
+};
+
+export default RouteComponent;
 //# sourceMappingURL=index.js.map
