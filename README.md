@@ -1,5 +1,7 @@
 # react-alp-route [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/alpjs/react-alp-route.svg)](https://greenkeeper.io/)
+
 react route with limosa router
 
  [![Dependency Status][daviddm-image]][daviddm-url]
