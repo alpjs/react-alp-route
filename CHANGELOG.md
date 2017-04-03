@@ -1,3 +1,7 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/alpjs/react-alp-route/compare/v0.3.1...v0.4.0) (2017-04-03)
+
+
 ### v0.3.1
 
 - [`05f6c2b`](https://github.com/alpjs/react-alp-route/commit/05f6c2b93e3637f131645f96386ee2b084e1d71f) refactor: pob update (Christophe Hurpeau)
