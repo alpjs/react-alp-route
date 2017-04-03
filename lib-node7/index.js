@@ -8,13 +8,7 @@ var _react = require('react');
 
 // import areEqual from 'fbjs/lib/areEqual';
 
-const RouteComponent = (_ref, _ref2) => {
-  let name = _ref.name,
-      controller = _ref.controller,
-      action = _ref.action,
-      children = _ref.children;
-  let route = _ref2.context.route;
-
+const RouteComponent = ({ name, controller, action, children }, { context: { route } }) => {
   if (name !== undefined && name !== route.key) return null;
   if (controller !== undefined && controller !== route.controller) return null;
   if (action !== undefined) {
